@@ -7,6 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mission To Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <!-- custom css -->
+      <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -19,38 +22,47 @@
 
     <div class="row">
         <div class="col-md-12">
-          <h4 class="heading">{{app_data.news_title}}</h4>
-          <small> {{app_data.news_p}}</small>
+          <h3 class="heading pb-2"><strong>Latest Mars News</strong> </h3>
+          <p><strong>{{app_data.news_title}}</strong></p>
+          <p><small> {{app_data.news_p}}</small></p>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-md-6">
-          <h4 class="heading">Featured Mars Image</h4>
-          <img src="{{app_data.feature_image}}" class="img-fluid" alt="Feature Image"> 
+          <h3 class="heading"><strong>Featured Mars Image</strong></h3>
+          <img src="{{app_data.feature_image}}" class="img-fluid" alt="Feature Image" width="500" height="300"> 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 offset-md-6">
+          <h3 class="heading"><strong>Mars Facts</strong></h3>
 
           {{app_data.data_table|safe}}
 
-             
+        
         </div>
     </div>
 
-    <div class = "row">
-      <h3>Mars Hemispheres</h3>
+    <div class = "row m-3">
+      <h3 class="heading"><strong>Mars Hemispheres</strong></h3>
+      <hr>
       {% for image in app_data.hemispheres %}
-      <div class="col-md-4">
+      <div class="col-md-6">
      
-        <img src="{{image.img_url}}" class="img-fluid" alt="Feature Image"> 
-        <!-- {{image.img_url}} -->
-      </div>
+
+
+        <div class="thumbnail m-5">
+          <a href="{{image.img_url}}">
+            <img src="{{image.img_url}}" alt="Lights" style="width:100%">
+            <div class="caption">
+              <h4><strong>{{image.title}}</strong></h4>
+            </div>
+          </a>
+        </div>
+
+        </div>
       {% endfor %}
 
-
-
-
-
-    </div>
+      </div>
 
 
   </div>
