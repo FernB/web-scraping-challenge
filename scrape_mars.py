@@ -1,7 +1,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
 from webdriver_manager.chrome import ChromeDriverManager
-import requests
+import time
 import pandas as pd
 
 news_url = 'https://redplanetscience.com/'
@@ -18,6 +18,10 @@ def scrape():
 
     #visit news site
     browser.visit(news_url)
+
+    time.sleep(1)
+
+
     html = browser.html
     soup = bs(html, 'lxml')
 
@@ -29,11 +33,16 @@ def scrape():
     # visit image site
     browser.visit(feature_url)
 
+    time.sleep(1)
+
+
     # find and save link to feature image
     feature_image = browser.links.find_by_partial_href('feature').first['href']
     
     # visit geological site
     browser.visit(astro_geo_url)
+
+    time.sleep(1)
 
     # find all links to image sites
     image_links = browser.find_by_css('.product-item').links.find_by_partial_text('Enhance')
@@ -62,8 +71,9 @@ def scrape():
     df = tables[0]
     df.rename(columns=df.iloc[0], inplace=True)
     df.drop([0], inplace=True)
+    df.set_index(['Mars - Earth Comparison'], inplace=True)
     # save at html table
-    html_table = df.to_html(index=False, bold_rows=True, col_space=20, classes=["table-striped", "table-bordered", "tstyle"])
+    html_table = df.to_html(index=True, classes=["table", "table-striped", "table-bordered"])
 
 
     # Store data in a dictionary
